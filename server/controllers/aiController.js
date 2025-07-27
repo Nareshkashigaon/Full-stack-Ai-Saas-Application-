@@ -40,7 +40,7 @@ export const generateArticle = async (req, res) => {
 
     const content = response.choices[0].message;
     await sql` INSERT INTO creations (user_id, prompt, content, type)
-VALUES (${userId}, ${prompt}, ${content}, 'article')`;
+VALUES (${userId}, ${prompt}, ${content.content}, 'article')`;
 
     if (plan !== "premium") {
       await clerkClient.users.updateUserMetadata(userId, {
@@ -86,7 +86,7 @@ export const generateBlogTitle = async (req, res) => {
 
     const content = response.choices[0].message;
     await sql` INSERT INTO creations (user_id, prompt, content, type)
-VALUES (${userId}, ${prompt}, ${content}, 'blog-title')`;
+VALUES (${userId}, ${prompt}, ${content.content}, 'blog-title')`;
 
     if (plan !== "premium") {
       await clerkClient.users.updateUserMetadata(userId, {
